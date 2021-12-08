@@ -67,3 +67,14 @@ size_distribution %>%
   filter(group_size >= 4) %>%
   # Calculate prob_4_or_more by taking sum of probabilities
   summarize(prob_4_or_more = sum(probability))
+
+# Set random seed to 334
+set.seed(334)
+
+# Generate 1000 wait times between 0 and 30 mins, save in time column
+wait_times %>%
+  mutate(time = runif(1000, min = 0, max = 30)) %>%
+  # Create a histogram of simulated times
+  ggplot(aes(x = time)) +
+  geom_histogram(bins = 30)
+
