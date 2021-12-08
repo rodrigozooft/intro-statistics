@@ -33,3 +33,11 @@ upper <- q3 + 1.5 * iqr
 emissions_by_country %>%
   filter(total_emission > upper | total_emission < lower)
 
+# Count the deals for each product
+amir_deals %>%
+  count(product)
+
+# Calculate probability of picking a deal with each product
+amir_deals %>%
+  count(product) %>%
+  mutate(prob = n / sum(n))
