@@ -12,3 +12,24 @@ ggplot(food_consumption, aes(x = co2_emission)) +
   geom_histogram() +
   # Create a separate sub-graph for each food_category
   facet_wrap(~ food_category)
+
+# Calculate total co2_emission per country: emissions_by_country
+emissions_by_country <- food_consumption %>%
+  group_by(country) %>%
+  summarize(total_emission = sum(co2_emission))
+
+emissions_by_country
+
+# Compute the first and third quantiles and IQR of total_emission
+q1 <- quantile(emissions_by_country$total_emission, probs = c(0.25))
+q3 <- quantile(emissions_by_country$total_emission, probs = c(0.75))
+iqr <- q3 - q1
+
+# Calculate the lower and upper cutoffs for outliers
+lower <- q1 - 1.5 * iqr
+upper <- q3 + 1.5 * iqr
+
+# Filter emissions_by_country to find outliers
+emissions_by_country %>%
+  filter(total_emission > upper | total_emission < lower)
+
