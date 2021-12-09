@@ -64,3 +64,11 @@ mean(sample_means)
 
 # Calculate mean of num_users in amir_deals
 mean(amir_deals$num_users)
+
+# Scatterplot of grams_sugar_per_day and happiness_score
+world_happiness %>%
+    ggplot(aes(x = grams_sugar_per_day, y = happiness_score)) + 
+    geom_point()
+
+# Correlation between grams_sugar_per_day and happiness_score
+cor(world_happiness$grams_sugar_per_day, world_happiness$happiness_score)
